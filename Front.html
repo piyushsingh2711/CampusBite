@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusBite | Smart Canteen System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #10b981; 
+      --primary-dark: #064e3b;
+      --accent: #fbbf24; 
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: var(--light);
+      color: var(--dark);
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      color: white;
+      padding: 15px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .logo-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #cbd5e1;
+      font-weight: 500;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover { color: var(--primary); }
+
+    .hero {
+      background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
+                  url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 140px 20px;
+      text-align: center;
+    }
+
+    .hero h1 { font-size: 56px; font-weight: 800; margin-bottom: 15px; }
+    .hero p { font-size: 18px; color: #e2e8f0; margin-bottom: 35px; }
+
+    .btn-main {
+      padding: 15px 40px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-main:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); }
+
+    section { padding: 80px 8%; }
+    .section-title { text-align: center; margin-bottom: 50px; }
+    .section-title h2 { font-size: 32px; font-weight: 700; color: var(--dark); }
+
+    /* Features RESTORED */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 35px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      border: 1px solid #f1f5f9;
+      transition: 0.3s;
+    }
+
+    .feature-card:hover { transform: translateY(-10px); background: #fdfdfd; }
+    .feature-icon { font-size: 40px; margin-bottom: 15px; display: block; }
+    .feature-card h3 { font-size: 18px; margin-bottom: 10px; color: var(--dark); }
+    .feature-card p { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+    /* Menu Grid */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--accent);
+      color: var(--dark);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .menu-item img { width: 100%; height: 200px; object-fit: cover; }
+    .menu-content { padding: 25px; }
+    .tag { font-size: 11px; font-weight: 700; background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; display: inline-block; }
+    .price { font-size: 18px; font-weight: 700; color: var(--dark); margin-top: 10px; }
+
+    .menu-content button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: var(--dark);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .menu-content button:hover { background: var(--primary); }
+
+    .cart-box{
+max-width:700px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #e5e7eb;
+padding:12px 0;
+}
+
+.qty-btn{
+background:var(--primary);
+border:none;
+color:white;
+width:28px;
+height:28px;
+border-radius:50%;
+cursor:pointer;
+font-weight:700;
+}
+
+.qty-box{display:flex;align-items:center;gap:8px;}
+
+.total{
+font-size:20px;
+font-weight:700;
+margin-top:20px;
+text-align:right;
+}
+
+/* PAYMENT */
+.payment{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:15px;
+}
+
+.pay-btn{
+padding:10px;
+border-radius:10px;
+border:none;
+font-weight:700;
+cursor:pointer;
+background:#f1f5f9;
+}
+
+.pay-btn:hover{background:var(--primary);color:white;}
+
+    .login-box {
+      max-width: 400px;
+      margin: 0 auto;
+      background: lab(98.99% -1.49 0.01);
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      outline: none;
+    }
+
+    footer { background: var(--dark); color: #94a3b8; padding: 40px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <div class="logo-circle">CB</div>
+      CampusBite
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#cart">🛒 Cart</a></li>
+        <li><a href="#login">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>Skip the Queue.</h1>
+    <p>Fresh meals, fast delivery, and smart tracking for your campus life.</p>
+    <button class="btn-main" onclick="document.getElementById('menu').scrollIntoView()">Order Now</button>
+  </section>
+
+  <section id="features">
+    <div class="section-title">
+      <h2>Why CampusBite?</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3>Instant Ordering</h3>
+        <p>Browse the menu during class and have your food ready the moment you walk out.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3>Real-time Tracking</h3>
+        <p>Get notified when your Maggie is being cooked or when your coffee is ready.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💸</span>
+        <h3>Digital Payments</h3>
+        <p>No more cash struggles. Pay instantly via UPI, Cards, or Student Wallet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="section-title">
+      <h2>Campus Favorites</h2>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="badge">Must Try</div>
+        <img src="https://images.unsplash.com/photo-1612927601601-6638404737ce?q=80&w=1000&auto=format&fit=crop" alt="Maggie">
+        <div class="menu-content">
+          <span class="tag">QUICK BITE</span>
+          <h4>Masala Maggie</h4>
+          <p class="price">₹50</p>
+          <button onclick="addToCart('Maggie',50)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1000&auto=format&fit=crop" alt="Pasta">
+        <div class="menu-content">
+          <span class="tag">ITALIAN</span>
+          <h4>White Sauce Pasta</h4>
+          <p class="price">₹120</p>
+          <button onclick="addToCart('Pasta',120)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="badge">Best Seller</div>
+        <img src="https://images.unsplash.com/photo-1553381006-e9b84d5952c8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNoYWklMjBsYXR0ZXxlbnwwfHwwfHx8MA%3D%3D" alt="Tea">
+        <div class="menu-content">
+          <span class="tag">BEVERAGE</span>
+          <h4>Adrak Chai</h4>
+          <p class="price">₹10</p>
+          <button onclick="addToCart('Chai',10)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="data:image/jpeg;base64,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" alt="Coffee">
+        <div class="menu-content">
+          <span class="tag">BEVERAGE</span>
+          <h4>Hot Coffee</h4>
+          <p class="price">₹20</p>
+          <button onclick="addToCart('Coffee',20)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1000&auto=format&fit=crop" alt="Pizza">
+        <div class="menu-content">
+          <span class="tag">FAST FOOD</span>
+          <h4>Garden Fresh Pizza</h4>
+          <p class="price">₹149</p>
+          <button onclick="addToCart('Pizza',149)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1000&auto=format&fit=crop" alt="Burger">
+        <div class="menu-content">
+          <span class="tag">FAST FOOD</span>
+          <h4>Aloo Tikki Burger</h4>
+          <p class="price">₹75</p>
+          <button onclick="addToCart('Burger',75)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- CART -->
+  <section id="cart">
+
+<div class="section-title">
+<h2>My Cart 🧾</h2>
+</div>
+
+<div class="cart-box">
+
+<div id="cartItems"></div>
+
+<div class="total" id="totalBill">
+Total: ₹0
+</div>
+
+<div class="payment">
+
+<button class="pay-btn" onclick="pay('Google Pay')">📱 GPay</button>
+<button class="pay-btn" onclick="pay('PhonePe')">💜 PhonePe</button>
+<button class="pay-btn" onclick="pay('Paytm')">💙 Paytm</button>
+<button class="pay-btn" onclick="pay('UPI')">🏦 UPI</button>
+
+</div>
+
+</div>
+</section>
+
+  <section id="login" style="background: #f1f5f9;">
+    <div class="section-title">
+      <h2>Student Login</h2>
+    </div>
+    <div class="login-box">
+      <input type="text" placeholder="Roll Number / Email">
+      <input type="password" placeholder="Password">
+      <button style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer;" onclick="alert('Login Demo Success')">Sign In</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 CampusBite | Fast. Fresh. Digital.</p>
+  </footer>
+
+  <script>
+
+let cart = {};
+
+function addToCart(name, price){
+
+if(cart[name]){
+cart[name].qty++;
+}else{
+cart[name]={price:price,qty:1};
+}
+
+updateCart();
+}
+
+function updateCart(){
+
+let cartBox = document.getElementById("cartItems");
+let total = 0;
+
+cartBox.innerHTML="";
+
+for(let item in cart){
+
+let data = cart[item];
+let sub = data.price * data.qty;
+
+total += sub;
+
+cartBox.innerHTML += `
+<div class="cart-item">
+
+<span>🍽️ ${item}</span>
+
+<div class="qty-box">
+
+<button class="qty-btn" onclick="changeQty('${item}',-1)">-</button>
+
+<span>${data.qty}</span>
+
+<button class="qty-btn" onclick="changeQty('${item}',1)">+</button>
+
+</div>
+
+<span>₹${sub}</span>
+
+</div>
+`;
+}
+
+document.getElementById("totalBill").innerText = "Total: ₹" + total;
+}
+
+function changeQty(item, val){
+
+cart[item].qty += val;
+
+if(cart[item].qty<=0){
+delete cart[item];
+}
+
+updateCart();
+}
+
+function pay(method){
+
+let total = document.getElementById("totalBill").innerText;
+
+if(total==="Total: ₹0"){
+alert("Cart is empty!");
+return;
+}
+
+alert("Redirecting to " + method + "...\nPayment Successful (Demo)");
+
+cart = {};
+updateCart();
+}
+
+</script>
+
+</body>
+</html>
